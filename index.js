@@ -25,7 +25,7 @@ app.get('/productos', async (req, res) => {
 const routerProd = new Router();
 
 
-routerProd.get('/',  (req, res) => {
+routerProd.get('api/productos',  (req, res) => {
     try
     {const prod =productos.getAll();
      res.send (prod) 
@@ -35,7 +35,7 @@ routerProd.get('/',  (req, res) => {
     }
 });
 
-app.use('api/productos', routerProd);
+app.use(routerProd);
 
 
 const server = app.listen(PORT, () => {
