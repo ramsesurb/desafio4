@@ -9,7 +9,7 @@ class Contenedor {
         try {
             const content = JSON.parse(await fs.readFile(`./productos.json`,'utf-8'))
             return content
-            console.log (content)
+            
         } catch (error) {
         console.log(error)
         return []
@@ -19,7 +19,7 @@ class Contenedor {
         try {
             const prod = await rute.getAll()
             const getByid = prod.filter(e => e.id === id)
-            console.log(getByid)
+            
             return getByid
         } catch (error) {
         console.log(error)
