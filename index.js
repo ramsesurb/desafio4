@@ -37,7 +37,7 @@ routerProd.get('/', async (req, res) => {
 
 const routerById = new Router();
 
-routerById.get('/', async (req,res)=> {
+routerById.get('/productos/:id', async (req,res)=> {
     const id = req.params.id;
     try
     {const prodById = await productos.getByid(id);  
@@ -94,7 +94,7 @@ const routerProdDelete = new Router();
  });
 // rutas
 app.use('/api/productos', routerProd);
-app.use('/api/productos/:id', routerById);
+app.use('/api', routerById);
 //app.use('/api/productos', routerProdSave);
 //app.use('/api/productos', routerProdPut);
 //app.use('/api/productos', routerProdDelete);
