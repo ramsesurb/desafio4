@@ -15,10 +15,6 @@ app.get('/', (req, res) => {
     res.send(frase);
 });
 
-app.get('/productos', async (req, res) => {
-    const prods = await productos.getAll()
-    res.send(prods)
-})
 
 //get productos router
 
@@ -96,12 +92,12 @@ const routerProdDelete = new Router();
      console.log(err);
     }
  });
-
+// rutas
 app.use('/api/productos', routerProd);
 app.use('/api/productos/:id', routerById);
-app.use('/api/productos', routerProdSave);
-app.use('/api/productos', routerProdPut);
-app.use('/api/productos', routerProdDelete);
+//app.use('/api/productos', routerProdSave);
+//app.use('/api/productos', routerProdPut);
+//app.use('/api/productos', routerProdDelete);
 
 
 const server = app.listen(PORT, () => {
