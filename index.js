@@ -3,6 +3,7 @@ const {Router} = express
 const app = express();
 const Contenedor = require('./Contenedor')
 const productos = new Contenedor ('./productos.json')
+const { promises: fs } = require('fs');
 
 const PORT = 8080
 
@@ -102,10 +103,11 @@ app.use('/api', routerProdPut);
     try
     {
      const saveProd = await productos.getByid(id);
-     const newProd = {id:prod.id, tittle: prod.tittle ,price: prod.price, thumbnail: prod.thumbnail }
-    // await saveProd.push(newProd);
-    console.log(saveProd) 
-     res.send (newProd)
+     const newProd = {id:id, tittle: prod.tittle ,price: prod.price, thumbnail: prod.thumbnail }
+     const deleteProd = await productos.deleteById(id);
+     await deleteProd.push(newProd);
+     await fs.writeFile(`./productos.json`, JSON.stringify(deleteProd ,null, 2))
+     res.send ( newProd )
     }  
     catch (err) {
      console.log(err);
