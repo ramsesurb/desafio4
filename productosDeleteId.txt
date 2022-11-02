@@ -16,17 +16,5 @@
     "tittle": "Ibanez AZ2402",
     "price": 1999.99,
     "thumbnail": "https://muzikercdn.com/uploads/products/6256/625697/main_b504a8bc.jpg"
-  },
-  {
-    "id": 4,
-    "tittle": "Yamaha Pacifica 112VM",
-    "price": 319.99,
-    "thumbnail": "https://muzikercdn.com/uploads/products/196/19613/main_c65761a5.jpg"
-  },
-  {
-    "id": 5,
-    "tittle": "squier Jagmaster",
-    "price": 1200,
-    "thumbnail": "https://muzikercdn.com/uploads/products/6256/625697/main_b504a8bc.jpg"
   }
 ]

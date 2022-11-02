@@ -19,8 +19,9 @@ app.get('/', (req, res) => {
 //get productos router
 
 const routerProd = new Router();
- 
 
+app.use('/api/productos', routerProd);
+ 
 routerProd.get('/', async (req, res) => {
     
     try
@@ -35,23 +36,51 @@ routerProd.get('/', async (req, res) => {
 //get productos router ID
 
 
-const routerById = new Router();
+    const routerById = new Router();
 
-routerById.get('/productos/:id', async (req,res)=> {
-    const id = req.params.id;
+    app.use('/api', routerById);
+
+    routerById.get('/productos/:id', async (req,res)=> {
+    
+    const id = parseInt(req.params.id)
+    ;
     try
     {const prodById = await productos.getByid(id);  
      res.send (prodById) 
-     console.log(id);
+     
     }  
     catch (err) {
      console.log(err);
     }
  });
+
+ // Delete
+
+
+const routerProdDelete = new Router();
+
+app.use('/api', routerProdDelete);
+
+routerProdDelete.delete('/productos/:id', async (req,res)=> {
+
+        const id = parseInt(req.params.id)
+        try
+        {const deleteProd = await productos.deleteById(id);  
+        res.send (deleteProd) 
+        }  
+        catch (err) {
+        console.log(err);
+        }
+});
+
  
  //get productos save
+
  const routerProdSave = new Router();
- routerProdSave.post("/",async (req,res)=> {
+
+ app.use('/api', routerProdSave);
+
+ routerProdSave.post("/productos",async (req,res)=> {
     const prod= req.body;
     try
     {const saveProd = await productos.save(prod);  
@@ -65,39 +94,23 @@ routerById.get('/productos/:id', async (req,res)=> {
 
 const routerProdPut = new Router();
 
- routerProdPut.put("/",(req,res)=> {
+app.use('/api', routerProdPut);
+
+ routerProdPut.put("/productos/:id", async (req,res)=> {
     const prod = req.body;
-    const lastId = saveCont.length
-    const paramFind = req.params.id
+    const id = parseInt(req.params.id)
     try
-    {const prodById =productos.getByid(id);
-     const newProd = {id:(lastId+1), tittle: prod.tittle ,price: prod.price, thumbnail: prod.thumbnail }
-     const saveNewProd= productos.save(newProd);  
-     res.send (saveProd) 
-     res.send (saveNewProd) 
+    {
+     const saveProd = await productos.getByid(id);
+     const newProd = {id:prod.id, tittle: prod.tittle ,price: prod.price, thumbnail: prod.thumbnail }
+    // await saveProd.push(newProd);
+    console.log(saveProd) 
+     res.send (newProd)
     }  
     catch (err) {
      console.log(err);
     }
  });
-// Delete
-const routerProdDelete = new Router();
- routerProdDelete.delete("/",(req,res)=> {
-    const id = req.params.id;
-    try
-    {const deleteProd =productos.deleteById(id);  
-     res.send (deleteProd) 
-    }  
-    catch (err) {
-     console.log(err);
-    }
- });
-// rutas
-app.use('/api/productos', routerProd);
-app.use('/api', routerById);
-//app.use('/api/productos', routerProdSave);
-//app.use('/api/productos', routerProdPut);
-//app.use('/api/productos', routerProdDelete);
 
 
 const server = app.listen(PORT, () => {
